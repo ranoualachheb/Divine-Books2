@@ -23,16 +23,20 @@ const useStyles1 = makeStyles((theme) => ({
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ creator: '', title: '', description: '', Genre: '', author:'', selectedFile: '' })
-    const book = useSelector((state) => (currentId ? state.booksReducer.find((message) => message._id === currentId) : null));
+    const book = useSelector((state) => (currentId ? state.booksReducer.find((book) => book._id === currentId) : null));
 
     const dispatch = useDispatch()
     const classes = useStyles()
     const classes1 = useStyles1()
 
+    useEffect(() => {
+        if (book) setPostData(book);
+      }, [book]);
+
     const handleChange = (e) => setPostData({ ...postData, [e.target.name]: e.target.value })
 
     const clear = () => {
-        // setCurrentId(0);
+        setCurrentId(0);
         setPostData({ creator: '', title: '', description: '', Genre: '', author:'', selectedFile: '' })
       };
     const handleSubmit = (e) => {

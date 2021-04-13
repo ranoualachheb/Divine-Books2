@@ -27,10 +27,19 @@ export const addBook = async (req, res)=> {
     export const updateBook = async(req,res) => {
         const {id: _id} = req.params  
         const book = req.body
-        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No Book with that id')
        
-          const updatedBook = await PostMessage.findByIdAndUpdate( _id, book, {new: true})
+          const updatedBook = await books.findByIdAndUpdate( _id, book, {new: true})
           res.json(updatedBook)
         
-    }    
+    }   
+    
+    export const deleteBook = async(req,res) =>{
+        const {id} = req.params
+      
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Book with id: ${id}`);
+      
+        await books.findByIdAndRemove(id)  
+        res.json({ message: "Book deleted successfully." })
+      }
 

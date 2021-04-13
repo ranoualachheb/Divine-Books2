@@ -28,3 +28,12 @@ export const updateBook = (id,updatedBook) => async (dispatch) => {
             console.log(error)
     }
 }
+
+export const deleteBook = (id) => async (dispatch) =>{
+    try{
+        await axios.delete(`${url}/${id}`)
+        dispatch({type:'DELETE', payload: id })
+    }catch(error){
+        console.log(error)
+    }
+}
