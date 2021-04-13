@@ -29,7 +29,7 @@ export const addBook = async (req, res)=> {
         const book = req.body
         if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
        
-          const updatedBook = await PostMessage.findByIdAndUpdate( _id, book, {new: true})
+          const updatedBook = await books.findByIdAndUpdate( _id, book, {new: true})
           res.json(updatedBook)
         
     }    
