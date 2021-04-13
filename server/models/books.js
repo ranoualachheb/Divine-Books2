@@ -8,7 +8,7 @@ const bookSchema = mongoose.Schema({
      //new
      author:String,
      //taggy
-     types: String,
+     Genre: String,
      selectedFile: String,
      likeCount: {
          type:Number,

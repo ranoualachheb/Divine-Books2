@@ -5,7 +5,7 @@ import books from '../models/books.js';
 
 const router = express.Router();
 
-export const getBooks = async (req, res) => { 
+export const getAllBooks = async (req, res) => { 
     try {
         const booksRes = await books.find();
         res.status(200).json(booksRes);
@@ -14,7 +14,7 @@ export const getBooks = async (req, res) => {
     }
 }
 
-export const createBook = async (req, res)=> {
+export const addBook = async (req, res)=> {
     const newBook = new books(req.body)
         try {
             await newBook.save() 
