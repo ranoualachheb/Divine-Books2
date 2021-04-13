@@ -15,8 +15,16 @@ export const addBook = (postData) => async (dispatch) => {
     try{
         const {data} = await axios.post(url, postData)
         dispatch({type: "ADD_BOOK", payload: data})
-        console.log(data)
     }catch(error) {
         console.log(error)
+    }
+}
+
+export const updateBook = (id,updatedBook) => async (dispatch) => {
+    try{
+        const {data} = await axios.patch(`${url}/${id}`,updatedBook)
+        dispatch({type: 'UPDATE', payload: data })
+    }catch(error){
+            console.log(error)
     }
 }

@@ -10,10 +10,7 @@ const bookSchema = mongoose.Schema({
      //taggy
      Genre: String,
      selectedFile: String,
-     likeCount: {
-         type:Number,
-         default: 0
-     },
+
      createdAt: {type : Date,
     default: new Date()
 },

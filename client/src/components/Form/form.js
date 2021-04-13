@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { addBook } from '../../actions/books';
+import { addBook, updateBook } from '../../actions/books';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,8 +21,9 @@ const useStyles1 = makeStyles((theme) => ({
   },
 }));
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ creator: '', title: '', description: '', Genre: '', author:'', selectedFile: '' })
+    const book = useSelector((state) => (currentId ? state.booksReducer.find((message) => message._id === currentId) : null));
 
     const dispatch = useDispatch()
     const classes = useStyles()
@@ -34,23 +35,22 @@ const Form = () => {
         // setCurrentId(0);
         setPostData({ creator: '', title: '', description: '', Genre: '', author:'', selectedFile: '' })
       };
-    console.log(postData)
     const handleSubmit = (e) => {
         e.preventDefault();
     
-        // if (currentId === 0) {
+        if (currentId === 0) {
           dispatch(addBook(postData))
           clear();
-        // } else {
-        //   dispatch(updatePost(currentId, postData));
-        //   clear();
+        } else {
+          dispatch(updateBook(currentId, postData));
+          clear();
         // }
-      };
+      }}
 
     return (
         <Paper className={classes.paper}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-            <Typography variant="h6">Add a Book</Typography>
+            <Typography variant="h6">{currentId ? `Edit "${book.title}"` : 'Add a book'}</Typography>
             <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange= {handleChange} />
             <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange= {handleChange} />
             <TextField name="description" variant="outlined" label="description" fullWidth multiline rows={4} value={postData.description} onChange= {handleChange} />
