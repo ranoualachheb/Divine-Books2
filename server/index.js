@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import booksRoutes from './routes/books.js';
+import userRoutes from './routes/user.js'
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use('/books', booksRoutes);
+app.use('/users', userRoutes)
 
 
 const connectDB = async ()=> {
