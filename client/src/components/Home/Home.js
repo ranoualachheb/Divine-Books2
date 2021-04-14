@@ -4,16 +4,18 @@ import Books from "../Books/Books"
 import Form from "../Form/Form"
 import {getAllBooks} from '../../actions/books'
 import {useDispatch} from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 
 const Home = () => {
     const [currentId, setCurrentId] = useState(null)
    const dispatch = useDispatch()
 
+
+
    useEffect(() => {
        dispatch(getAllBooks())
     }, [currentId,dispatch])
-
     return (
         <div>
             <Grow in>

@@ -48,7 +48,9 @@ function randomColor() {
     const history = useHistory()
     const location = useLocation()
 
-
+    const isAdmin = useSelector((state) => state.authReducer?.user.isAdmin);
+    
+    const user = JSON.parse(localStorage.getItem('profile'));
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -58,13 +60,13 @@ function randomColor() {
 
     const handleClick = (event) => {
         event.preventDefault();
-        setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget)
         setOpen(!open);
       };
     
       const handleClose = () => {
         setAnchorEl(null);
-        setOpen(false);
+        setOpen(false)
       };
 
 
@@ -74,11 +76,17 @@ function randomColor() {
         history.push('/auth')
     }
 
-      const classes = useStyles();
+      const classes = useStyles()
 
+      useEffect(() => {
+        if (!user) {
+          history.push('/auth')
+        }
+      }, [history]);
 
       return (
         <div>
+          {user ?
           <IconButton
             aria-controls='simple-menu'
             aria-haspopup='true'
@@ -91,12 +99,13 @@ function randomColor() {
               className={(classes.contrast, classes.root)}
             >
             </Avatar>
-          </IconButton>
+          </IconButton> : null }
           <Popper className={classes.dropDown} open={open} anchorEl={anchorEl}>
             <List id='simple-menu' keepMounted>
-                <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/Users' >Users</ListItem>
+            {!isAdmin ? null :
+                <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/Users' >Users</ListItem> }
             <ListItem className={classes.dropDownStyle} button onClick={handleClose}>Book Types</ListItem>
-            <ListItem className={classes.dropDownStyle} button onClick={handleLogOut} >Logout</ListItem>
+            <ListItem className={classes.dropDownStyle} button onClick={handleLogOut} >{!user ? 'signIn' : 'Logout'}</ListItem>
             </List>
           </Popper>
         </div>
