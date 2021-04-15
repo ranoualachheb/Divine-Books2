@@ -16,6 +16,7 @@ app.use(cors());
 
 app.use('/books', booksRoutes);
 app.use('/books', authorRoutes);
+app.use('/books', genreRoutes);
 app.use('/users', userRoutes);
 
 
