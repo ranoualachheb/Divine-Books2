@@ -73,7 +73,8 @@ function randomColor() {
       const handleLogOut = () => {
         localStorage.clear()
         handleClose();
-        history.push('/auth')
+       history.push('/auth')
+      
     }
 
       const classes = useStyles()
@@ -82,7 +83,7 @@ function randomColor() {
         if (!user) {
           history.push('/auth')
         }
-      }, [history]);
+      }, [user]);
 
       return (
         <div>

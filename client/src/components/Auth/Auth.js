@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { signIn, signUp } from '../../actions/user'
 import useStyles from './styles'
@@ -19,7 +19,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) history.push('/')
-  }, [user])
+  }, [user])  
 
   const [showPassword, setShowPassword] = useState(false)
   const handleShowPassword = () => setShowPassword(!showPassword)
@@ -39,6 +39,7 @@ const Auth = () => {
     } else {
       dispatch(signIn(form, history))
     }
+    // <Redirect to ='/Home' />
   }
 
   
