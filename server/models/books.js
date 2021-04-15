@@ -1,14 +1,12 @@
 import mongoose from 'mongoose'
 
 const bookSchema = mongoose.Schema({
+     id : Number,
      title: String,
-     //msg
      description: String,
      creator: String,
-     //new
-     author:String,
-     //taggy
-     Genre: String,
+     authors:[],
+     Genres: [],
      selectedFile: String,
 
      createdAt: {type : Date,
