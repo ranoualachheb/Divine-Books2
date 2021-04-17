@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core'
 import { Redirect, useHistory } from 'react-router-dom'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import { signIn, signUp } from '../../actions/user'
+import { signIn, signUp } from '../../actions/auth'
 import useStyles from './styles'
 import Input from './Input'
 
@@ -39,7 +39,6 @@ const Auth = () => {
     } else {
       dispatch(signIn(form, history))
     }
-    // <Redirect to ='/Home' />
   }
 
   

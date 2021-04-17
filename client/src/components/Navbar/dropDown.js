@@ -48,12 +48,10 @@ function randomColor() {
     const history = useHistory()
     const location = useLocation()
 
-    const isAdmin = useSelector((state) => state.authReducer?.user.isAdmin);
-    
-    const user = JSON.parse(localStorage.getItem('profile'));
+    const isAdmin = useSelector((state) => state.authReducer?.user?.isAdmin);
+    const user = useSelector(state => state.authReducer.isLoggedIn);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-
     const [open, setOpen] = React.useState(false);
 
 
@@ -70,20 +68,19 @@ function randomColor() {
       };
 
 
-      const handleLogOut = () => {
-        localStorage.clear()
+      const handleLogOut = async () => {
+        await dispatch ({type: 'LOGOUT'})   
         handleClose();
-       history.push('/auth')
-      
-    }
+        history.push('/')
+      }
 
       const classes = useStyles()
 
       useEffect(() => {
         if (!user) {
-          history.push('/auth')
+          history.push('/')
         }
-      }, [user]);
+      }, [history]);
 
       return (
         <div>

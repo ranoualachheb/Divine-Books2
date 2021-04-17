@@ -1,44 +1,33 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { Container } from '@material-ui/core'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar/Navbar'
-import Home from './components/Home/Home'
+import { BrowserRouter, Switch , Route } from 'react-router-dom'
 import Auth from './components/Auth/Auth'
-import Users from './components/Users/users'
-import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-
-
-
-
+import { useSelector } from 'react-redux';
+import Site from './components/Site/index';
+import Users from './components/Site/Users/users';
 
 
 
 
 
 const App = () => {
- const history = useHistory()
-//  const user = JSON.parse(localStorage.getItem('profile'))
-const User = useSelector(state => state.authReducer?.user)
-console.log(User)
+   let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
 
-  return (
-    <BrowserRouter>
-      <Container maxWidth="lg">
-        <Navbar/>
-          <Switch>
-          {!User 
-               ? <>
-                  <Route path = '/auth' component={Auth}/>
-                 </>
-               : <>
-                  <Route exact path = '/Users' component = {Users} />
-                  <Route  path = '/' component={Home}/> 
-               </>}
-          </Switch>
-      </Container>
-    </BrowserRouter>
-  )
+
+   return (
+      <BrowserRouter>
+         <Container className ="container" maxwidth="lg">
+            <Navbar />
+            <Switch>
+               <Route exact path='/' component={isLoggedIn ? Site : Auth} />
+               {isLoggedIn
+                  ? <Route exact path='/Users' component={Users} />
+                  : null}
+            </Switch>
+         </Container>
+      </BrowserRouter>
+   )
 }
 
-export default App;
+export default App

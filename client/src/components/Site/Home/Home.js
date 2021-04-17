@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react'
 import {Container, Grow, Grid } from '@material-ui/core'
 import Books from "../Books/Books"
 import Form from "../Form/Form"
-import {getAllBooks} from '../../actions/books'
+import {getAllBooks} from '../../../actions/books'
 import {useDispatch} from 'react-redux'
 
 
