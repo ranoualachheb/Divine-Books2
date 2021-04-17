@@ -6,7 +6,8 @@ import cors from 'cors';
 import booksRoutes from './routes/books.js';
 import authorRoutes from './routes/author.js';
 import genreRoutes from './routes/Genre.js';
-import userRoutes from './routes/user.js';
+import authRoutes from './routes/auth.js';
+import usersRoutes from './routes/user.js'
 
 const app = express();
 
@@ -17,7 +18,9 @@ app.use(cors());
 app.use('/books', booksRoutes);
 app.use('/books', authorRoutes);
 app.use('/books', genreRoutes);
-app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', usersRoutes);
+
 
 
 const connectDB = async ()=> {
