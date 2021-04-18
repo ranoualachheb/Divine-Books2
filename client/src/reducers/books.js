@@ -9,7 +9,7 @@ export default (books = [], action) => {
     case 'UPDATE': 
         return books.map((book)=> (book._id === action.payload._id ? action.payload : book) )
     case 'DELETE':
-        return books.filter((book) => (book._id !== action.payload._id))
+        return books.filter((book) => (book._id !== action.payload))
     default : 
         return books
     }

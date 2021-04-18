@@ -5,10 +5,9 @@ const bookSchema = mongoose.Schema({
      title: String,
      description: String,
      creator: String,
-     authors:[],
-     Genres: [],
+     author:String,
+     Genre: String,
      selectedFile: String,
-
      createdAt: {type : Date,
     default: new Date()
 },

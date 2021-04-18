@@ -4,8 +4,6 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import booksRoutes from './routes/books.js';
-import authorRoutes from './routes/author.js';
-import genreRoutes from './routes/Genre.js';
 import authRoutes from './routes/auth.js';
 import usersRoutes from './routes/user.js'
 
@@ -16,8 +14,6 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use('/books', booksRoutes);
-app.use('/books', authorRoutes);
-app.use('/books', genreRoutes);
 app.use('/auth', authRoutes);
 app.use('/users', usersRoutes);
 

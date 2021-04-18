@@ -8,7 +8,7 @@ const Site = () => {
         <>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/Users' component={Users} />
-                <Route path='/' component={Home} />
+                {/* <Route path='/' component={Home} /> */}
                 </>
     );
 }

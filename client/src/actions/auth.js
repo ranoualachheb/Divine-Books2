@@ -7,7 +7,7 @@ export const signIn = (formData,router) => async (dispatch) => {
       const data = await axios.post(`${url}/signIn`,formData)
   
       dispatch({ type: 'AUTH', data })
-  console.log(data)
+      console.log(data)
       router.push('/')
     } catch (error) {
       console.log(error)

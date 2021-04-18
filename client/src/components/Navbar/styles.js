@@ -9,10 +9,10 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 50px',
+    padding: '10px 10px 15px 70vh',
   },
   heading: {
-    color: 'rgba(0,183,255, 1)',
+    color: 'grey',
     textDecoration: 'none',
   },
   image: {
@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
+    width: '600px',
   },
   profile: {
     display: 'flex',
