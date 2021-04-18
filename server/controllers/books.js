@@ -17,6 +17,7 @@ export const getAllBooks = async (req, res) => {
 export const addBook = async (req, res)=> {
     const newBook = new books(req.body)
     console.log("we are creating a fucking book")
+    console.log(req.body)
     console.log(newBook)
         try {
             await newBook.save() 

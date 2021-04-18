@@ -35,16 +35,18 @@ const Form = ({ currentId, setCurrentId }) => {
     }
     
     const clear = () => {
-      setCurrentId(0);
+      setCurrentId(false);
       setPostData({ creator: '', title: '', description: '', Genre: '', author:'', selectedFile: '' })
     }
     
     const handleSubmit = (e) => {
       e.preventDefault();      
-      if (currentId === 0) {
+      if (!currentId) {
+        console.log('adding a book')
         dispatch(addBook(postData))
         clear();
         } else {
+          console.log('updating book')
           dispatch(updateBook(currentId, postData));
           clear();
       }}

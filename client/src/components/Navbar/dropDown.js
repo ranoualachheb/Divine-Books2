@@ -48,15 +48,12 @@ function randomColor() {
     const history = useHistory()
     const location = useLocation()
 
-    let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-    let checkAdmin = useSelector(state => state.authReducer?.checkAdmin)
-    const isAdmin = useSelector((state) => state.authReducer?.isAdmin);
+    // let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+    // const isAdmin = useSelector((state) => state.authReducer?.user?.isAdmin);
     const user = useSelector(state => state.authReducer.isLoggedIn);
-    const user1 = useSelector(state => state.authReducer?.user)
-    console.log(user)
-    console.log(user1)
-    console.log(isAdmin)
-    console.log(checkAdmin)
+    // const user1 = useSelector(state => state.authReducer?.user)
+    const isAdmin = localStorage.getItem('admin')
+    
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [open, setOpen] = React.useState(false);
 
@@ -106,7 +103,7 @@ function randomColor() {
           </IconButton> : null }
           <Popper className={classes.dropDown} open={open} anchorEl={anchorEl}>
             <List id='simple-menu' keepMounted>
-            {!(isLoggedIn && (isAdmin || checkAdmin))? null :
+            {!isAdmin? null :
                 <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/Users' >Users</ListItem> }
             <ListItem className={classes.dropDownStyle} button onClick={handleClose}>Book Types</ListItem>
             <ListItem className={classes.dropDownStyle} button onClick={handleLogOut} >{!user ? 'signIn' : 'Logout'}</ListItem>

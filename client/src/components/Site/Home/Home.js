@@ -14,9 +14,8 @@ const Home = () => {
 
 
    useEffect(() => {
-
        dispatch(getAllBooks())
-    }, [,currentId,dispatch])
+    }, [currentId,dispatch])
     return (
         <div>
             <Grow in>

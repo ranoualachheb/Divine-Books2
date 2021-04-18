@@ -13,7 +13,7 @@ export const getAllBooks = () => async(dispatch) => {
 
 export const addBook = (postData) => async (dispatch) => {
     try{
-        const {data} = await axios.post(url, {postData})
+        const {data} = await axios.post(url, postData)
         console.log(data)
         dispatch({type: 'ADD_BOOK', payload: data})
     }catch(error) {
