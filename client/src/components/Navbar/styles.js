@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 10px 15px 70vh',
+    padding: '5px 10px 10px 15vh',
   },
   heading: {
     color: 'grey',

@@ -1,4 +1,4 @@
-import React,{useState, useEffect } from 'react'
+import React,{ useEffect } from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -104,8 +104,9 @@ function randomColor() {
           <Popper className={classes.dropDown} open={open} anchorEl={anchorEl}>
             <List id='simple-menu' keepMounted>
             {!isAdmin? null :
-                <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/Users' >Users</ListItem> }
-            <ListItem className={classes.dropDownStyle} button onClick={handleClose}>Book Types</ListItem>
+                <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/Users' >Users</ListItem>
+                 }
+            <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/'>Home</ListItem>
             <ListItem className={classes.dropDownStyle} button onClick={handleLogOut} >{!user ? 'signIn' : 'Logout'}</ListItem>
             </List>
           </Popper>

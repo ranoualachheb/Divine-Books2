@@ -31,3 +31,12 @@ export const getAllUsers = () => async dispatch => {
       console.log(error);
     }
   }
+
+  export const deleteUser = (id) => async dispatch => {
+    try {
+      await axios.delete(`${url}/${id}`)
+      dispatch({type: 'DELETE_USER', payload: id})
+    } catch (error) {
+      console.log(error)
+    }
+  }

@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs'
 
 
@@ -23,7 +22,7 @@ export const createNewUser = async (req, res) => {
     console.log('we are making a new user')
     const { firstName, lastName, email, password, isAdmin } = req.body;
     try {
-        const user = await UserModal.create({ email, password: bcrypt.hashSync(password), name: `${firstName} ${lastName}`, isAdmin });
+        const user = await UserModal.create({ email, password: bcrypt.hashSync(password), name: `${firstName} ${lastName}`, isAdmin: !!isAdmin });
         res.json(user);
     } catch (e) {
         res.status(500).json({ message: 'Something went wrong' });
@@ -47,5 +46,14 @@ export const editUser = async (req, res) => {
         res.status(500).json({ message: 'Something went wrong' });
         console.log(e);
     }
+}
+
+export const deleteUser = async (req, res) => {
+    console.log('we are deleting a user now')
+    const id = req.params.id
+    console.log('ID************', id)
+    const user = await UserModal.deleteOne({_id: id})
+    console.log(user)
+    res.json(id)
 }
 

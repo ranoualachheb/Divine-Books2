@@ -11,9 +11,9 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import { FormControlLabel, TextField, Typography, Checkbox } from '@material-ui/core';
-import { createNewUser, editUser, getAllUsers } from '../../../actions/user';
-import { useHistory } from 'react-router-dom';
+import { FormControlLabel, TextField, Typography, Checkbox, Grow, Container, Grid } from '@material-ui/core';
+import { createNewUser, editUser, getAllUsers, deleteUser } from '../../../actions/user';
+import useStyles from '../Form/styles';
 
 const Users = () => {
 
@@ -28,6 +28,7 @@ const Users = () => {
    
     const users = useSelector(state => state.users);
     const dispatch= useDispatch()
+    const classes = useStyles()
 
     useEffect(() => {
         dispatch(getAllUsers())
@@ -85,13 +86,28 @@ const Users = () => {
         setPassword('')
     }
 
+    const handleDelete = async (id) => {
+        dispatch(deleteUser(id))
+        setEditing(false)
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+        setAdmin('')
+        setPassword('')
+        setConfirmPassword('')
+    }
+
     if (!users.length) {
         dispatch(getAllUsers());
     }
 
     return (
         <div>
-            <TableContainer component={Paper}>
+            <Grow in>
+                <Container>
+                <Grid container justify="space-between" alignItems="stretch" spacing={3}>
+                <Grid item xs={12} sm={7}>
+            <TableContainer component={Paper} styles={{'width': '50%'}}>
                 <Table  aria-label='Users Table'>
                     <TableHead>
                         <TableRow>
@@ -111,19 +127,22 @@ const Users = () => {
                                     <IconButton aria-label='edit' size='small' id={user._id} onClick={(e) => {setCurrUser(user._id); handleEdit(e, user);}}>
                                         <EditIcon fontSize='small' />
                                     </IconButton>
-                                    <IconButton aria-label='delete' size='small' onClick={() =>{}}>
+                                    <IconButton aria-label='delete' size='small' onClick={() => handleDelete(user._id)}>
                                         <DeleteIcon fontSize='small' />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
                         ))}
                         <TableRow key='new'>
-                            <Button fullWidth onClick={handleCreate}>Create a New User</Button>
+                           <Button fullWidth  onClick={handleCreate}>Create a New User</Button>
                         </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
-            <form autoComplete='off' noValidate onSubmit={handleSubmit}>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+            <Paper className={classes.paper} styles={{'width': '30%'}}>
+            <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{!editing ? 'Create' : 'Edit'} User</Typography>
                 <TextField
                     name='firstName'
@@ -177,8 +196,13 @@ const Users = () => {
                     value={confirmPassword}
                     onChange={e => setConfirmPassword(e.target.value)}
                 />
-                <Button type='submit' variant='contained' color='primary' size='large' fullWidth>Submit</Button>
+                <Button className={classes.buttonSubmit} type='submit' variant='contained' color='primary' size='large' fullWidth>Submit</Button>
             </form>
+            </Paper>
+            </Grid>
+            </Grid>
+            </Container>
+            </Grow>
         </div>
     )
 }

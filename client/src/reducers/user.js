@@ -11,6 +11,8 @@ export default (users = [], action) => {
         let theNewState = newState.filter((user) => user._id !== action.payload.id)
         theNewState.push(action.payload.update.user)
         return theNewState
+    case 'DELETE_USER':
+        return users.filter((el) => el._id !== action.payload)    
     default : 
         return users
     }
