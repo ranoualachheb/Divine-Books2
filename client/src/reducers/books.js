@@ -5,9 +5,7 @@ export default (books = [], action) => {
     case 'GET_ALL':
         return action.payload
     case 'ADD_BOOK':
-        let newList = [...books];
-        newList.push(action.payload);
-        return newList;
+        return [...books, action.payload];
     case 'UPDATE': 
         return books.map((book)=> (book._id === action.payload._id ? action.payload : book) )
     case 'DELETE':

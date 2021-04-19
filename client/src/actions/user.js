@@ -21,3 +21,13 @@ export const getAllUsers = () => async dispatch => {
       console.log(error)    
     }
   }
+
+  export const editUser = (formData) => async dispatch => {
+    try {
+      const data = await axios.put( `${url}/${formData._id}`, formData);
+      console.log('HERE is the updated user data from request', data.data);
+      await dispatch({ type: 'UPDATE_USER', payload: {update: data.data, id: formData._id} });
+    } catch (error) {
+      console.log(error);
+    }
+  }

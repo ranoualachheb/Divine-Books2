@@ -7,6 +7,10 @@ export default (users = [], action) => {
         return action.payload 
     case 'NEW_USER':
         return [...users, action.payload.data]
+    case 'UPDATE_USER':
+        let theNewState = newState.filter((user) => user._id !== action.payload.id)
+        theNewState.push(action.payload.update.user)
+        return theNewState
     default : 
         return users
     }

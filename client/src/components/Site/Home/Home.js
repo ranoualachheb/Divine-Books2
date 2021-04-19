@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux'
 
 
 const Home = () => {
-    const [currentId, setCurrentId] = useState(null)
+    const [currentId, setCurrentId] = useState(0)
    const dispatch = useDispatch()
 
 

@@ -12,7 +12,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import { FormControlLabel, TextField, Typography, Checkbox } from '@material-ui/core';
-import { createNewUser, editUser, deleteUser, getAllUsers } from '../../../actions/user';
+import { createNewUser, editUser, getAllUsers } from '../../../actions/user';
 import { useHistory } from 'react-router-dom';
 
 const Users = () => {
@@ -27,35 +27,66 @@ const Users = () => {
     const [currUser, setCurrUser] = useState(0);
    
     const users = useSelector(state => state.users);
-    console.log(users)
     const dispatch= useDispatch()
-    useEffect(() => {
-        dispatch(getAllUsers());
-    }, []);
 
-    const handleCreate = async () => {
-        setEditing(false);
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setAdmin(false);
-        setPassword('');
-        setConfirmPassword('');
+    useEffect(() => {
+        dispatch(getAllUsers())
+    }, [])
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (editing) {
+            if (password === confirmPassword) {
+                dispatch(editUser({ _id: currUser, firstName, lastName, email, isAdmin: admin, password }))
+                setEditing(false)
+                setFirstName('')
+                setLastName('')
+                setEmail('')
+                setAdmin('')
+                setPassword('')
+                setConfirmPassword('')
+            } else {
+                alert('Passwords do not match')
+            }
+        } else {
+            if (password === confirmPassword) {
+                dispatch(createNewUser({ firstName, lastName, email, isAdmin: admin, password }))
+                setEditing(false)
+                setFirstName('')
+                setLastName('')
+                setEmail('')
+                setAdmin('')
+                setPassword('')
+                setConfirmPassword('')
+            } else {
+                alert('Passwords do not match')
+            }
+        }
     }
     
-    const handleEdit = async (e, user) => {
-        setEditing(true);
-        console.log(currUser);
-        setFirstName(user.name.split(' ')[0]);
-        setLastName(user.name.split(' ')[1]);
-        setEmail(user.email);
-        setAdmin(user.isAdmin);
-        setPassword('');
-        setPassword('');
+    const handleCreate = async () => {
+        setEditing(false)
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+        setAdmin(false)
+        setPassword('')
+        setConfirmPassword('')
     }
 
-    const handleSubmit = () => {
-        
+    const handleEdit = async (e, user) => {
+        setEditing(true)
+        console.log(currUser)
+        setFirstName(user.name.split(' ')[0])
+        setLastName(user.name.split(' ')[1])
+        setEmail(user.email)
+        setAdmin(user.isAdmin)
+        setPassword('')
+        setPassword('')
+    }
+
+    if (!users.length) {
+        dispatch(getAllUsers());
     }
 
     return (

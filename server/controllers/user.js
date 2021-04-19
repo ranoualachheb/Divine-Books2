@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs'
+
 
 import UserModal from "../models/user.js"
 
@@ -23,6 +25,24 @@ export const createNewUser = async (req, res) => {
     try {
         const user = await UserModal.create({ email, password: bcrypt.hashSync(password), name: `${firstName} ${lastName}`, isAdmin });
         res.json(user);
+    } catch (e) {
+        res.status(500).json({ message: 'Something went wrong' });
+        console.log(e);
+    }
+}
+
+export const editUser = async (req, res) => {
+    console.log('we are editing a user now')
+    const _id = req.params.id;
+    const { firstName, lastName, email, password, isAdmin } = req.body;
+    req.body.name = `${firstName} ${lastName}`;
+    try {
+        const user = await UserModal.findById(_id);
+        const currPassword = user.password;
+        await UserModal.findByIdAndDelete(_id);
+        const updatedUser = await UserModal.create({name: `${firstName} ${lastName}`, email, password: password ? password : currPassword, isAdmin});
+        console.log(updatedUser)
+        res.json({ user: updatedUser });
     } catch (e) {
         res.status(500).json({ message: 'Something went wrong' });
         console.log(e);
