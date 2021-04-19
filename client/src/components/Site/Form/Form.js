@@ -47,7 +47,7 @@ const Form = ({ currentId, setCurrentId }) => {
             <TextField name="author" variant="outlined" label="author" fullWidth value={postData.author} onChange= {handleChange} />
             <TextField name="Genre" variant="outlined" label="Genre" fullWidth value={postData.Genre} onChange= {(e) => setPostData({ ...postData, Genre: e.target.value.split(',') })} />
             <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
-            <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" disabled={!(postData.creator && postData.title && postData.description && postData.author && postData.Genre)}fullWidth>Create Book</Button>
+            <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" disabled={!(postData.creator && postData.title && postData.description && postData.author && postData.Genre)}fullWidth>Submit</Button>
             <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
         </form>
       </Paper>
