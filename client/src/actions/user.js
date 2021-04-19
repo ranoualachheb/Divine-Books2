@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const url = 'http://localhost:/users';  
+const url = 'http://localhost:8080/users';  
 
 export const getAllUsers = () => async dispatch => {
     try {
