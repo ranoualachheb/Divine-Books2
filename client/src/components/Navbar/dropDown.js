@@ -103,7 +103,7 @@ function randomColor() {
                 <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/Users' >Users</ListItem>
                  }
             <ListItem className={classes.dropDownStyle} button onClick={handleClose} component = {NavLink} to ='/'>Home</ListItem>
-            <ListItem className={classes.dropDownStyle} button onClick={handleLogOut} >{!user ? 'signIn' : 'Logout'}</ListItem>
+            <ListItem className={classes.dropDownStyle} button component={NavLink} to='/' onClick={handleLogOut} >{!user ? 'signIn' : 'Logout'}</ListItem>
             </List>
           </Popper>
         </div>

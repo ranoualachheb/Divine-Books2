@@ -14,8 +14,11 @@ import Button from '@material-ui/core/Button';
 import { FormControlLabel, TextField, Typography, Checkbox, Grow, Container, Grid } from '@material-ui/core';
 import { createNewUser, editUser, getAllUsers, deleteUser } from '../../../actions/user';
 import useStyles from '../Form/styles';
+import history, { useHistory } from 'react-router-dom'
 
 const Users = () => {
+
+   let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -29,6 +32,7 @@ const Users = () => {
     const users = useSelector(state => state.users);
     const dispatch= useDispatch()
     const classes = useStyles()
+    const history = useHistory()
 
     useEffect(() => {
         dispatch(getAllUsers())
@@ -99,6 +103,14 @@ const Users = () => {
     if (!users.length) {
         dispatch(getAllUsers());
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('admin') && isLoggedIn === true) {
+            dispatch(getAllUsers)        
+    } else {
+           history.push('/')
+        }
+      })
 
     return (
         <div>

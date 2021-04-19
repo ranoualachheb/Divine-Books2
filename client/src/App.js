@@ -12,7 +12,6 @@ import Home from './components/Site/Home/Home'
 const App = () => {
    
    let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-   let isAdmin = useSelector(state => state.authReducer?.user?.isAdmin);
 
    return (
       <BrowserRouter>
@@ -20,9 +19,10 @@ const App = () => {
             <Navbar />
             <Switch>
                <Route exact path='/' component={isLoggedIn ? Site : Auth} />
-               {isLoggedIn && isAdmin
+               {isLoggedIn 
                   ? <Route exact path='/Users' component={Users} />
                   :null}
+               <Route path='/' component={Auth} />
             </Switch>
          </Container>
       </BrowserRouter>
