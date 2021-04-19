@@ -1,0 +1,122 @@
+import React,{useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import { FormControlLabel, TextField, Typography, Checkbox } from '@material-ui/core';
+import { createNewUser, editUser, deleteUser, getAllUsers } from '../../../actions/users';
+import { useHistory } from 'react-router-dom';
+
+const Users = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [admin, setAdmin] = useState(false);
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [editing, setEditing] = useState(false);
+    const [currUser, setCurrUser] = useState(0);
+
+    return (
+        <div>
+            <TableContainer component={Paper}>
+                <Table  aria-label='Users Table'>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell align='right'>Email</TableCell>
+                            <TableCell align='center'>Admin</TableCell>
+                            <TableCell align='right'></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {users.map((user) => (
+                            <TableRow key={user._id}>
+                                <TableCell component='th' scope='row'>{user.name}</TableCell>
+                                <TableCell align='right'>{user.email}</TableCell>
+                                <TableCell align='center'>{user.isAdmin ? 'Yes' : 'No'}</TableCell>
+                                <TableCell>
+                                    <IconButton aria-label='edit' size='small' id={user._id} onClick={(e) => {setCurrUser(user._id)}}>
+                                        <EditIcon fontSize='small' />
+                                    </IconButton>
+                                    <IconButton aria-label='delete' size='small' onClick={() =>{}}>
+                                        <DeleteIcon fontSize='small' />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                        <TableRow key='new'>
+                            <Button fullWidth onClick={() => {}}>Create a New User</Button>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <form autoComplete='off' noValidate onSubmit={handleSubmit}>
+                <Typography variant="h6">{!editing ? 'Create' : 'Edit'} User</Typography>
+                <TextField
+                    name='firstName'
+                    variant='outlined'
+                    label='First Name'
+                    fullWidth
+                    required
+                    value={firstName}
+                    onChange={e => {console.log(currUser);setFirstName(e.target.value)}}
+                />
+                <TextField
+                    name='lastName'
+                    variant='outlined'
+                    label='Last Name'
+                    fullWidth
+                    required
+                    value={lastName}
+                    onChange={e => {console.log(currUser); setLastName(e.target.value)}}
+                />
+                <TextField
+                    name='email'
+                    variant='outlined'
+                    label='Email'
+                    type='email'
+                    fullWidth
+                    required
+                    value={email}
+                    onChange={e => {console.log(currUser); setEmail(e.target.value)}}
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={admin} onChange={() => {console.log(currUser); setAdmin(admin ? false : true)}} name='admin' />}
+                    label='Admin'
+                />
+                <TextField
+                    name='password'
+                    variant='outlined'
+                    label='Password'
+                    type='password'
+                    fullWidth
+                    required
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <TextField
+                    name='confirmPassword'
+                    variant='outlined'
+                    label='Confirm Password'
+                    type='password'
+                    fullWidth
+                    required
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
+                />
+                <Button type='submit' variant='contained' color='primary' size='large' fullWidth>Submit</Button>
+            </form>
+        </div>
+    )
+}
+
+export default Users
