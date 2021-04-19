@@ -6,11 +6,13 @@ import Auth from './components/Auth/Auth'
 import { useSelector } from 'react-redux';
 import Site from './components/Site/index';
 import Users from './components/Site/Users/users';
+import Home from './components/Site/Home/Home'
 
 
 const App = () => {
    
    let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+   let isAdmin = useSelector(state => state.authReducer?.user?.isAdmin);
 
    return (
       <BrowserRouter>
@@ -18,9 +20,9 @@ const App = () => {
             <Navbar />
             <Switch>
                <Route exact path='/' component={isLoggedIn ? Site : Auth} />
-               {isLoggedIn
+               {isLoggedIn && isAdmin
                   ? <Route exact path='/Users' component={Users} />
-                  : null}
+                  :null}
             </Switch>
          </Container>
       </BrowserRouter>

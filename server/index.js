@@ -19,12 +19,12 @@ app.use('/users', usersRoutes);
 
 
 
-        const CONNECTION_URL = 'mongodb://localhost:27017/BooksLibrary?readPreference=primary&appname=MongoDB%20Compass&ssl=false'
+        const CONNECTION_URL = 'mongodb+srv://ranoua:God123@cluster0.vmi6v.mongodb.net/BooksLibrary?retryWrites=true&w=majority'
 
         
         const PORT = process.env.PORT || 8080
         mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-        .then(() => app.listen(PORT, ()=> console.log(`server runnning on port:${PORT}`)) )
+        .then(() => app.listen(PORT, ()=> console.log(`server runnning on port:${PORT}`)), console.log('mongo connected') )
         .catch((error)=> console.log(error.message))
         
         
