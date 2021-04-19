@@ -17,3 +17,15 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
+export const createNewUser = async (req, res) => {
+    console.log('we are making a new user')
+    const { firstName, lastName, email, password, isAdmin } = req.body;
+    try {
+        const user = await UserModal.create({ email, password: bcrypt.hashSync(password), name: `${firstName} ${lastName}`, isAdmin });
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ message: 'Something went wrong' });
+        console.log(e);
+    }
+}
+

@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Grid, CircularProgress  } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Book from '../Books/Book/Book'
 import useStyles from './styles'
+import { getAllBooks } from '../../../actions/books'
 
 
 
 const Books = ({ setCurrentId }) => {
     const books = useSelector((state) => state.booksReducer)
     const classes = useStyles()
-  
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+      dispatch(getAllBooks())
+    }, [])
+
     return (
       !books.length ? <CircularProgress /> : (
         <Grid className={classes.container} container alignItems="stretch" spacing={3}>

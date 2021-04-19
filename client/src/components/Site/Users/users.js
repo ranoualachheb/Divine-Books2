@@ -12,10 +12,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import { FormControlLabel, TextField, Typography, Checkbox } from '@material-ui/core';
-import { createNewUser, editUser, deleteUser, getAllUsers } from '../../../actions/users';
+import { createNewUser, editUser, deleteUser, getAllUsers } from '../../../actions/user';
 import { useHistory } from 'react-router-dom';
 
 const Users = () => {
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,6 +25,38 @@ const Users = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [editing, setEditing] = useState(false);
     const [currUser, setCurrUser] = useState(0);
+   
+    const users = useSelector(state => state.users);
+    console.log(users)
+    const dispatch= useDispatch()
+    useEffect(() => {
+        dispatch(getAllUsers());
+    }, []);
+
+    const handleCreate = async () => {
+        setEditing(false);
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setAdmin(false);
+        setPassword('');
+        setConfirmPassword('');
+    }
+    
+    const handleEdit = async (e, user) => {
+        setEditing(true);
+        console.log(currUser);
+        setFirstName(user.name.split(' ')[0]);
+        setLastName(user.name.split(' ')[1]);
+        setEmail(user.email);
+        setAdmin(user.isAdmin);
+        setPassword('');
+        setPassword('');
+    }
+
+    const handleSubmit = () => {
+        
+    }
 
     return (
         <div>
@@ -44,7 +77,7 @@ const Users = () => {
                                 <TableCell align='right'>{user.email}</TableCell>
                                 <TableCell align='center'>{user.isAdmin ? 'Yes' : 'No'}</TableCell>
                                 <TableCell>
-                                    <IconButton aria-label='edit' size='small' id={user._id} onClick={(e) => {setCurrUser(user._id)}}>
+                                    <IconButton aria-label='edit' size='small' id={user._id} onClick={(e) => {setCurrUser(user._id); handleEdit(e, user);}}>
                                         <EditIcon fontSize='small' />
                                     </IconButton>
                                     <IconButton aria-label='delete' size='small' onClick={() =>{}}>
@@ -54,7 +87,7 @@ const Users = () => {
                             </TableRow>
                         ))}
                         <TableRow key='new'>
-                            <Button fullWidth onClick={() => {}}>Create a New User</Button>
+                            <Button fullWidth onClick={handleCreate}>Create a New User</Button>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -68,7 +101,7 @@ const Users = () => {
                     fullWidth
                     required
                     value={firstName}
-                    onChange={e => {console.log(currUser);setFirstName(e.target.value)}}
+                    onChange={e => setFirstName(e.target.value)}
                 />
                 <TextField
                     name='lastName'
@@ -77,7 +110,7 @@ const Users = () => {
                     fullWidth
                     required
                     value={lastName}
-                    onChange={e => {console.log(currUser); setLastName(e.target.value)}}
+                    onChange={e => setLastName(e.target.value)}
                 />
                 <TextField
                     name='email'
@@ -87,10 +120,10 @@ const Users = () => {
                     fullWidth
                     required
                     value={email}
-                    onChange={e => {console.log(currUser); setEmail(e.target.value)}}
+                    onChange={e => setEmail(e.target.value)}
                 />
                 <FormControlLabel
-                    control={<Checkbox checked={admin} onChange={() => {console.log(currUser); setAdmin(admin ? false : true)}} name='admin' />}
+                    control={<Checkbox checked={admin} onChange={() => setAdmin(admin ? false : true)} name='admin' />}
                     label='Admin'
                 />
                 <TextField
