@@ -8,15 +8,9 @@ import Site from './components/Site/index';
 import Users from './components/Site/Users/users';
 
 
-
-
-
 const App = () => {
    
    let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-
-
-
 
    return (
       <BrowserRouter>

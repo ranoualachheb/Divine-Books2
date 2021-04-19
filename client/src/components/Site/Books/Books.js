@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Grid, CircularProgress  } from '@material-ui/core'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Book from '../Books/Book/Book'
 import useStyles from './styles'
 

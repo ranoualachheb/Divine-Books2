@@ -35,18 +35,17 @@ export const signUp = async (req, res) => {
         } else {
             admin = false
         }
-        console.log( 'we are signing in ')
+
     const oldUser = await UserModal.findOne({ email });
 
     if (oldUser) return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 12);
-
     const createdUser = await UserModal.create({ email, password: hashedPassword, name: `${firstName} ${lastName}`,isAdmin : admin});
-
     const token = jwt.sign( { email: createdUser.email, id: createdUser._id }, secret, { expiresIn: "1h" } );
 
     res.status(201).json({ user: createdUser, token });
+    
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
     

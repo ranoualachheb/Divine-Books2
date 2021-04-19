@@ -77,7 +77,6 @@ const Users = () => {
 
     const handleEdit = async (e, user) => {
         setEditing(true)
-        console.log(currUser)
         setFirstName(user.name.split(' ')[0])
         setLastName(user.name.split(' ')[1])
         setEmail(user.email)

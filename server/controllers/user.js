@@ -7,11 +7,9 @@ import UserModal from "../models/user.js"
 const router = express.Router();
 
 export const getAllUsers = async (req, res) => { 
-    console.log('we are getting all the users now')
     try {
         const users = await UserModal.find()
         res.status(200).json(users)
-        console.log(users)
     } catch (error) {
         console.log(error)
         res.status(404).json({ message: error.message })
@@ -19,7 +17,6 @@ export const getAllUsers = async (req, res) => {
 }
 
 export const createNewUser = async (req, res) => {
-    console.log('we are making a new user')
     const { firstName, lastName, email, password, isAdmin } = req.body;
     try {
         const user = await UserModal.create({ email, password: bcrypt.hashSync(password), name: `${firstName} ${lastName}`, isAdmin: !!isAdmin });
@@ -31,7 +28,6 @@ export const createNewUser = async (req, res) => {
 }
 
 export const editUser = async (req, res) => {
-    console.log('we are editing a user now')
     const _id = req.params.id;
     const { firstName, lastName, email, password, isAdmin } = req.body;
     req.body.name = `${firstName} ${lastName}`;
@@ -40,7 +36,6 @@ export const editUser = async (req, res) => {
         const currPassword = user.password;
         await UserModal.findByIdAndDelete(_id);
         const updatedUser = await UserModal.create({name: `${firstName} ${lastName}`, email, password: password ? password : currPassword, isAdmin});
-        console.log(updatedUser)
         res.json({ user: updatedUser });
     } catch (e) {
         res.status(500).json({ message: 'Something went wrong' });
@@ -49,11 +44,8 @@ export const editUser = async (req, res) => {
 }
 
 export const deleteUser = async (req, res) => {
-    console.log('we are deleting a user now')
     const id = req.params.id
-    console.log('ID************', id)
     const user = await UserModal.deleteOne({_id: id})
-    console.log(user)
     res.json(id)
 }
 

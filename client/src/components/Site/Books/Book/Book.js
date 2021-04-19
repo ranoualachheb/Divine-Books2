@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/'
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 import DeleteIcon from '@material-ui/icons/Delete'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import moment from 'moment'
@@ -25,6 +24,9 @@ const Book = ({ book, setCurrentId }) => {
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2"><strong>Written By:</strong> {book.author}</Typography>
+      </div>
+      <div className={classes.details}>
+      <Typography className={classes.Genre} color="blue" gutterBottom variant="body2"  component="h2"><strong>{book.Genre.map((genre) => `#${genre} `)}</strong></Typography>
       </div>
       <Typography className={classes.title} gutterBottom variant="h6" component="h2"> Added By: {book.creator}</Typography>
       <CardContent>

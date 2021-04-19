@@ -16,9 +16,6 @@ export const getAllBooks = async (req, res) => {
 
 export const addBook = async (req, res)=> {
     const newBook = new books(req.body)
-    console.log("we are creating a fucking book")
-    console.log(req.body)
-    console.log(newBook)
         try {
             await newBook.save() 
             res.status(201).json(newBook) 
@@ -28,7 +25,6 @@ export const addBook = async (req, res)=> {
     }
 
     export const updateBook = async(req,res) => {
-        console.log('updaaated')
         const {id: _id} = req.params  
         const book = req.body
         if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No Book with that id')

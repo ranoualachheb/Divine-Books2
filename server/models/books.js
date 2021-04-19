@@ -6,7 +6,7 @@ const bookSchema = mongoose.Schema({
      description: String,
      creator: String,
      author:String,
-     Genre: String,
+     Genre: [String],
      selectedFile: String,
      createdAt: {type : Date,
     default: new Date()

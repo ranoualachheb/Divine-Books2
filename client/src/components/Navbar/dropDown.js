@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Popper from '@material-ui/core/Popper';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 function randomColor() {
     let hex = Math.floor(Math.random() * 0xffffff);
@@ -19,7 +19,6 @@ function randomColor() {
     root: {
       display: 'flex',
       '& > *': {
-        // margin: theme.spacing(1),
         padding: 0
       }
     },
@@ -43,15 +42,12 @@ function randomColor() {
 
   const color = randomColor();
 
-  const AccountDropDown = props => {
+  const AccountDropDown = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const location = useLocation()
 
-    // let isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-    // const isAdmin = useSelector((state) => state.authReducer?.user?.isAdmin);
+
     const user = useSelector(state => state.authReducer.isLoggedIn);
-    // const user1 = useSelector(state => state.authReducer?.user)
     const isAdmin = localStorage.getItem('admin')
     
     const [anchorEl, setAnchorEl] = React.useState(null);
